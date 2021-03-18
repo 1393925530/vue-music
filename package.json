@@ -5,8 +5,8 @@
   "author": "",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
-    "start": "npm run dev",
+    "dev": "node build/dev-server.js",
+    "start": "npm build/dev-server.js",
     "lint": "eslint --ext .js,.vue src",
     "build": "node build/build.js"
   },
@@ -15,7 +15,10 @@
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "fastclick": "^1.0.6",
-    "jsonp": "^0.2.1"
+    "better-scroll": "^0.1.15",
+    "jsonp": "^0.2.1",
+    "axios": "^0.16.1",
+    "vue-lazyload": "^1.0.3"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
@@ -41,6 +44,7 @@
     "eslint-plugin-node": "^5.2.0",
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-standard": "^3.0.1",
+    "eventsource-polyfill": "^0.9.6",
     "eslint-plugin-vue": "^4.0.0",
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^1.1.4",
@@ -64,6 +68,7 @@
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.9.1",
+    "webpack-hot-middleware": "^2.18.0",
     "webpack-merge": "^4.1.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^2.1.1"
