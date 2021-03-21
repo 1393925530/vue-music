@@ -65,6 +65,7 @@ export default {
           }))
         }
         const key = item.Findex
+        // 若key不在map中，添加key
         if (!map[key]) {
           map[key] = {
             title: key,

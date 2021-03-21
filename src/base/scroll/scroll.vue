@@ -16,6 +16,7 @@ export default {
       type: Boolean,
       default: true
     },
+    // 通过监听data刷新组件
     data: {
       type: Array,
       default: null
