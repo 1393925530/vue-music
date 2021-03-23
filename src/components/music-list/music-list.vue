@@ -6,7 +6,7 @@
     <h1 class="title" v-html="title"></h1>
     <div class="bg-image" :style="bgStyle" ref="bgImage">
       <div class="play-wrapper">
-        <div class="play" ref="playBtn" v-show="songs.length > 0">
+        <div class="play" ref="playBtn" v-show="songs.length > 0" @click="random">
           <i class="icon-play"></i>
           <span class="text">随机播放全部</span>
         </div>
@@ -16,7 +16,7 @@
     <div class="bg-layer" ref="layer"></div>
     <scroll @scroll="scroll" :data="songs" :probeType="probeType" :listenScroll="listenScroll" class="list" ref="list">
       <div class="song-list-wrapper">
-        <song-list :songs="songs"></song-list>
+        <song-list @select="selectItem" :songs="songs"></song-list>
       </div>
       <div class="loading-container" v-show="!songs.length">
         <loading></loading>
@@ -30,10 +30,13 @@ import Scroll from 'base/scroll/scroll'
 import SongList from 'base/song-list/song-list'
 import Loading from 'base/loading/loading'
 import {prefixStyle} from 'common/js/dom'
+import {mapActions} from 'vuex'
+import {playlistMixin} from 'common/js/mixin'
 
 const RESERVED_HEIGHT = 40
 const transform = prefixStyle('transform')
 export default {
+  mixins: [playlistMixin],
   props: {
     bgImage: {
       type: String,
@@ -78,7 +81,31 @@ export default {
     },
     back () {
       this.$router.back()
-    }
+    },
+    selectItem (item, index) {
+      // 设置当前playlist和sequenceList
+      // 根据索引设置currentIndex
+      // 设置playerState
+      // 默认展开大播放器
+      this.selectPlay({
+        list: this.songs,
+        index
+      })
+    },
+    random () {
+      this.randomPlay({
+        list: this.songs
+      })
+    },
+    handlePlaylist (playlist) {
+      const bottom = playlist.length > 0 ? '60px' : ''
+      this.$refs.list.$el.style.bottom = bottom
+      this.$refs.list.refresh()
+    },
+    ...mapActions([
+      'selectPlay',
+      'randomPlay'
+    ])
   },
   watch: {
     scrollY (newVal) {
