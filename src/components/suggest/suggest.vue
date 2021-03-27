@@ -130,6 +130,10 @@ export default {
       } else {
         this.insertSong(item)
       }
+      this.$emit('select')
+    },
+    refresh () {
+      this.$refs.suggest.refresh()
     },
     _checkMore (data) {
       const song = data.song
